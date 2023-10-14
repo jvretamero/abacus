@@ -8,13 +8,18 @@ class Calculator {
     _localizationProvider = localizationProvider;
   }
 
-  double get currentNumber => _localizationProvider.parse(_buffer.toString());
+  double get currentNumber => _localizationProvider.parse(_currentNumberText);
+
+  String get _currentNumberText => _buffer.toString();
 
   void onNumber(int number) {
     _buffer.write(number);
   }
 
   void onDecimal() {
-    _buffer.write(_localizationProvider.decimalDigit);
+    var numberText = _currentNumberText;
+    if (numberText.contains(_localizationProvider.decimalSeparator)) return;
+
+    _buffer.write(_localizationProvider.decimalSeparator);
   }
 }

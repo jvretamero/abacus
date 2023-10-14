@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
 
 abstract class LocalizationProvider {
-  String get decimalDigit;
+  String get decimalSeparator;
   Future loadLocale();
   double parse(String number);
 }
@@ -29,7 +29,7 @@ class LocalizationProviderImpl implements LocalizationProvider {
   }
 
   @override
-  String get decimalDigit {
+  String get decimalSeparator {
     return _numberFormat!.symbols.DECIMAL_SEP;
   }
 }

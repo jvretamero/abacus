@@ -35,11 +35,26 @@ void main() {
       expect(calculator.currentNumber, 1.1);
     });
 
-    test('parse number with only decimal separator', () {
+    test('parse number with only integer digits', () {
       calculator.onNumber(1);
       calculator.onDecimal();
 
       expect(calculator.currentNumber, 1);
+    });
+
+    test('accept only one decimal separator', () {
+      calculator.onNumber(1);
+      calculator.onDecimal();
+      calculator.onDecimal();
+
+      expect(calculator.currentNumber, 1);
+    });
+
+    test('accept number with only decimal digits', () {
+      calculator.onDecimal();
+      calculator.onNumber(1);
+
+      expect(calculator.currentNumber, 0.1);
     });
   });
 }
