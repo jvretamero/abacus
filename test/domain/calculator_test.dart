@@ -74,4 +74,14 @@ void main() {
       expect(calculator.calculate(), 1);
     });
   });
+
+  group('Subtract operation', () {
+    test('subtract two numbers', () {
+      calculator.onNumber(2);
+      calculator.onSubtract();
+      calculator.onNumber(1);
+
+      expect(calculator.calculate(), 1);
+    });
+  });
 }

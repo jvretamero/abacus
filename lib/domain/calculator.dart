@@ -1,9 +1,11 @@
 import 'package:abacus/domain/localization_provider.dart';
+import 'package:abacus/domain/operation.dart';
 
 class Calculator {
   final StringBuffer _buffer = StringBuffer();
   late LocalizationProvider _localizationProvider;
   double _leftOperand = 0;
+  Operation _operation = Operation.none;
 
   Calculator(LocalizationProvider localizationProvider) {
     _localizationProvider = localizationProvider;
@@ -17,7 +19,14 @@ class Calculator {
   String get _currentNumberText => _buffer.toString();
 
   double calculate() {
-    return _leftOperand + _currentNumber;
+    switch (_operation) {
+      case Operation.add:
+        return _leftOperand + _currentNumber;
+      case Operation.subtract:
+        return _leftOperand - _currentNumber;
+      default:
+        return _currentNumber;
+    }
   }
 
   void onNumber(int number) {
@@ -31,8 +40,17 @@ class Calculator {
     _buffer.write(_localizationProvider.decimalSeparator);
   }
 
-  void onAdd() {
+  void _setOperation(Operation operation) {
+    _operation = operation;
     _leftOperand = _currentNumber;
     _buffer.clear();
+  }
+
+  void onAdd() {
+    _setOperation(Operation.add);
+  }
+
+  void onSubtract() {
+    _setOperation(Operation.subtract);
   }
 }
